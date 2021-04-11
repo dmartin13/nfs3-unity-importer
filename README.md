@@ -1,8 +1,15 @@
+![Overview](http://files.fotomartin.eu/nfsimporter/images/overview.png "Overview")
+
 # Need For Speed III - Unity Importer
 
 **Important notes**:
 
-* If you are not a developer and just want to use this importer, download this package. You don't have to clone the repository.
+* if you are not a developer and just want to use the tool, then you do not need to clone this repository. All you have to do is download the following package and import it into Unity
+
+| NFS3Importer |
+| ------ |
+| [Download NFS3Importer Package](http://files.fotomartin.eu/nfsimporter/packages/NFS3Importer.unitypackage) |
+
 * It is important that the importer is located in the project under Assets/NFS3Importer, as there are dependencies in the code. However, this path is set by default when importing
 * If you do not use the Universal Render Pipeline, but the Legacy Render Pipeline, errors will appear when importing the package because the URP shaders cannot be compiled. However, these errors can simply be ignored, since in this case they are not used by the importer.
 
@@ -13,11 +20,14 @@ The Need For Speed III Unity Importer is an editor plug-in for the Unity Engine 
 Special Thanks
 
 * Denis Auroux (T3D, fshtool) (<http://www.math.polytechnique.fr/cmat/auroux/nfs/>)
-* Amrik Sadhra (([OpenNFS](https://github.com/OpenNFS/OpenNFS))
+* Amrik Sadhra ([OpenNFS](https://github.com/OpenNFS/OpenNFS))
+
+Without the work of others, this project would not have been possible for me. I got the main information from the source code of the T3D tool from Denis Auroux. I got some information about the street lights and animated textures from the OpenNFS project, which by the way is a very interesting project :)
 
 <figure class="video_container">
   <iframe src="https://www.youtube.com/embed/M0tAuKIhzHw" frameborder="0" allowfullscreen="true"> </iframe>
 </figure>
+
 
 ## What is Need For Speed 3 - Unity Importer NOT
 
@@ -28,40 +38,39 @@ This tool is only a track importer... no music, no cars (maybe i will add this i
 * Supports Legacy Renderpipeline (Built-In), Universal Render-Pipeline (URP), HDRP-support comming soon
 * Import of complete track-geometry with all textures
 * Import of all objects along the track
-* supports animated objects (Train, Aircraft, Zeppelin, ...)
+* supports animated objects (train, aircraft, zeppelin, ...)
 * supports animated textures (e.g. rivers)
-* supports Destroyable Objects (roadsigns, fences, ...)
+* supports destroyable objects (roadsigns, fences, ...)
 * Accurate creation of track colliders
-* Import of all Lights (static lights, blinking lights)
-* Import of Virtual Road Points (for position detection along the track)
-* Own shaders for skybox and for additive Textures (e.g. lightbeams)
-* almost complete parsing of HRZ-Files
+* Import of all lights (static lights, blinking lights)
+* Import of "Virtual Road Points" (for position detection along the track)
+* Own shaders for skybox and for additive textures (e.g. lightbeams)
+* almost complete parsing of HRZ-files
 * creation of easily configurable weather-objects that can be assigned to the track
 * ready for light-baking after import
 * mesh optimization (recalculation of normals to make a smoother look)
 * automated lightprobe creation
 * Runtime-Scripts:
-  * Accurate positiondetection (also support for abbreviations) along Track based on a Voronoi-Diagram
-  * Dynamic Fog Script per Camera to support Fog-Regions from HRZ-Files
-  * Dynamic Weather-effects (Rain, Snow, Lightning) with parsed Information from HRZ-Files
-  * Script for playing Sounds on Objects that have a sound attached (Bushes, Church, Farm, ...) [Note: Import of sound-effects is not yet supported, but you can assign your own sounds]
+  * Accurate positiondetection (also support for abbreviations) along track based on a Voronoi-Diagram
+  * Dynamic Fog script per camera to support fog-regions from HRZ-files
+  * Dynamic Weather effects (rain, snow, lightning) with parsed information from HRZ-Files
+  * Script for playing sounds on objects that have a sound attached (bushes, church, farm, ...) [Note: Import of sound-effects is not yet supported, but you can assign your own sounds]
 
 ## Quick Start (for users)
 
 ### Import Tracks
 
-* Import **NFS3Importer.unitypackage** into your project.
+* Import **[NFS3Importer.unitypackage](http://files.fotomartin.eu/nfsimporter/packages/NFS3Importer.unitypackage)** into your project.
   * It is important that the importer is located in the project under Assets/NFS3Importer, as there are dependencies in the code. However, this path is set by default when importing
-  * If you do not use the Universal Render Pipeline, but the Legacy Render Pipeline, errors will appear when importing the package because the URP shaders cannot be compiled. \
-    Shader error in 'NFS3Importer/URP/Additive': failed to open source file: 'Packages/com.unity.render-pipelines.core/ShaderLibrary/Color.hlsl' at line 71 (on glcore)\
-    Shader error in 'NFS3Importer/URP/Skybox': failed to open source file: 'Packages/com.unity.render-pipelines.core/ShaderLibrary/Color.hlsl' at line 95 (on glcore)\
-    However, these errors can simply be ignored, since in this case they are not used by the importer.
+  * If you do not use the Universal Render Pipeline, but the Legacy Render Pipeline, errors will appear when importing the package because the URP shaders cannot be compiled. Example: ```Shader error in 'NFS3Importer/URP/Additive': failed to open source file: 'Packages/com.unity.render-pipelines.core/ShaderLibrary/Color.hlsl' at line 71 (on glcore)``` However, these errors can simply be ignored, since in this case they are not used by the importer.
 * Go to **Window** -> **NFS3 Track Importer** and drag the new window wherever you want.
-* Click **Select Path** and choose the root directory of your NFS3 CD or NFS3 Directory on your hard drive.
+* Click **Select Path** and choose the root directory of your NFS3 CD or NFS3 directory on your hard drive.
 * Click **Scan Directory**
-* Choose the Tracks you want to import
+* Choose the tracks you want to import
 * Click on **Import Tracks**
 * **CAUTION**: One Track needs up to 10 or 15 Minutes to import and there is no progress bar or something else... stay patient
+
+![Sample Video](http://files.fotomartin.eu/nfsimporter/videos/intro.mp4)
 
 ### After Import
 
@@ -75,7 +84,7 @@ The last imported track is directly loaded as new scene in the Editor Hierachy. 
 * **Lane**: Lanes are the road markings
 * **BlockExtra**: Additional objects such as fences are saved here
 * **Object**: These are normal objects that have no collider or any other special function. E.g. trees
-* **XObject**: This object has some special function. There are e.g. objects that you can destroy (street signs, fences, ...) or objects that play a sound when you drive through (bushes). The colliders for XObjects are specially calculated by the importer. These are BoxColliders, which, compared to Meshcolliders, are significantly more efficient in terms of performance. And the accuracy of Meshcollider is not absolutely necessary here.\
+* **XObject**: This object has some special function. There are e.g. objects that you can destroy (street signs, fences, ...) or objects that play a sound when you drive through (bushes). The colliders for XObjects are specially calculated by the importer. These are BoxColliders, which, compared to MeshColliders, are significantly more efficient in terms of performance. And the accuracy of MeshCollider is not absolutely necessary here.\
   ![Roadsign](http://files.fotomartin.eu/nfsimporter/images/roadsign.png "Roadsign")
   * **Destroyable objects**: So-called joints are added to every destructible object, which break if you hit them with a certain force. In addition, a rigidbody component and the HitAndFallObject script are added to the script. The HitAndFallObject script saves the weight of the object
   * **Objects playing a sound**: The script DriveThroughWithSound is attached to this object, which plays a sound when a threshold is exceeded when you drive through. Since I was unfortunately not yet able to decode the sounds, the field for the audio clip in this script is empty. But of course you can add your own sound files.
@@ -87,7 +96,9 @@ For each track, the VirtualRoadPoints from Need For Speed are also imported, whi
 
 The importer automatically creates lightprobes (described in more detail below), which are also created in the hierarchy
 
-![Hierarchy](http://files.fotomartin.eu/nfsimporter/images/hierarchy2.png "Hierarchy")A global NFSTrackSettings object is also created for each route, which is used by many runtime scripts. This object stores e.g. a reference to all virtual road points. It also includes the weather object. If you program your own logic and need access to the virtual road points, you should take them from this object. Since this object is a singleton, there can only be one object of this type in the scene and all other scripts can rely on only this one unique instance.
+![Hierarchy](http://files.fotomartin.eu/nfsimporter/images/hierarchy2.png "Hierarchy")
+
+A global NFSTrackSettings object is also created for each track, which is used by many runtime scripts. This object stores e.g. a reference to all virtual road points. It also includes the weather object. If you program your own logic and need access to the virtual road points, you should take them from this object. Since this object is a singleton, there can only be one object of this type in the scene and all other scripts can rely on only this one unique instance.
 
 ![Hierarchy](http://files.fotomartin.eu/nfsimporter/images/hierarchy3.png "Hierarchy")
 
@@ -153,7 +164,7 @@ The scene is optimized for baking a lightmap with Mixed Mode (Shadowmask in Lega
   * Max Lightmap Size: 256
   * Ambient Occlusion with default settings
 * Click Generate Lighting
-* Depending on your Hardware this can take a bit (GTX 1050TI \~ 40 mins per track, CPU \~ multiple hours :D)
+* Depending on your hardware this can take a bit (GTX 1050TI \~ 40 mins per track, CPU \~ multiple hours :D)
 
 #### Runtime scripts
 
@@ -162,16 +173,23 @@ I have created some scripts that can be used to easily create some game logic
 * **Progress Tracker**: Assign this script to your car and it will automatically detect the current Position (index of Virtual Road Point) along the track.
   * This script is very efficient at runtime as it doesn't check every waypoint to see which is the nearest. The basic concept behind the whole is the calculation of all possible neighboring points of one point with the help of a voronoi diagram while the track is being imported. At runtime, starting from the current waypoint, only the possible neighbors are checked. (Constant runtime, even with thousands of points)
   * **this script is a prerequisite for the scripts "dynamic weather effect" and "dynamic fog" as they need the current position along the track**
-  * The script has a public variable: \*\*\*public VRoadPoint CurrentPoint \*\*\*with which you have access to the waypoint that is currently closest
+  * The script has a public variable: `public VRoadPoint CurrentPoint` with which you have access to the waypoint that is currently closest
 * **Dynamic Fog**: Add this script to a camera. This script changes the fog along the route based on the values ​​in the weather objects (requires **Progress Tracker** in a parent's object)
 * **Dynamic Weather Effect**: Add this script to a camera. This script changes the weather along the route based on the values ​​in the weather objects (rain effect, snow effect, lightning). (requires **Progress Tracker** in a parent's object)
 * **Surface Detector**: This script recognizes the current surface under the car (wood, grass, asphalt, ...). Add this script to your car object.
 
-## Video
-
 ## FAQ
 
 TBD
+
+## Troubleshooting
+
+* Collider issues (very rare)
+  * **Solution**: manually edit the collider meshes
+* darkness in tunnels
+  * **Solution**: simply add some lights or adjust the settings for lightbaking
+* NullReferenceException because TrackSettings-Instance is destroyed during Import
+  * **Solution**: Remove the partly imported Scene, delete the folder containing the track. Quit Unity and start it again. Try again. Now it should work.
 
 ## More Details (for users)
 
@@ -206,7 +224,9 @@ The importer settings allow you to adjust certain parameters that are used durin
 
 All values for the Shader are automatically calculated by the importer and have their origin in the weather files (HRZ files) of Need For Speed. However, you can of course adjust the values a little and also create a skybox. Therefore, here is a brief explanation of the values
 
-![Shader Settings](http://files.fotomartin.eu/nfsimporter/images/shadersettings.png "Shader Settings")In general, it should be said that it is probably best if you just try something around with the values.
+![Shader Settings](http://files.fotomartin.eu/nfsimporter/images/shadersettings.png "Shader Settings")
+
+In general, it should be said that it is probably best if you just try something around with the values.
 
 * **SkyColor, HorizonColor, GroundColor**: I think these values are self-explanatory
 * **HorizonSharpnessSky**: With this value you can specify how soft or hard the transition between the SkyColor and the HorizonColor should be
@@ -263,17 +283,11 @@ Abbreviations can sometimes cause problems
 
 ## Documentation for Developers
 
-comming soon...
+TBD
 
 ## Known Issues
 
 * Some interactive objects (roadsigns, fences, ...) have flipped textures
-* Collider issues (very rare)
-  * **Solution**: manually edit the collider meshes
-* darkness in tunnels
-  * **Solution**: simply add some lights or adjust the settings for lightbaking
-* NullReferenceException because TrackSettings-Instance is destroyed during Import
-  * **Solution**: Remove the partly imported Scene, delete the folder containing the track. Quit Unity and start it again. Try again. Now it should work.
 * Light is bleeding through edges in tunnels
 
 ## Planed for Future
