@@ -1,6 +1,6 @@
-![Overview](http://files.fotomartin.eu/nfsimporter/images/overview.png "Overview")
-
 # Need For Speed III - Unity Importer
+
+![Overview](http://files.fotomartin.eu/nfsimporter/images/overview.png "Overview")
 
 **Important notes**:
 
@@ -17,17 +17,15 @@
 
 The Need For Speed III Unity Importer is an editor plug-in for the Unity Engine to import race tracks from the computer game Need For Speed III Hot Pursuite. All files are converted into "Unity-understandable" files so that the track can be edited inside the Unity Editor. For each imported track, a scene is created with all track contents. The tool works on Linux, Windows, MacOS. It supports the legacy render pipeline (built-in), the universal render pipeline (URP), High Definition Renderpipeline (HDRP) planed for future.
 
-Special Thanks
+**Special Thanks:**
 
 * Denis Auroux (T3D, fshtool) (<http://www.math.polytechnique.fr/cmat/auroux/nfs/>)
 * Amrik Sadhra ([OpenNFS](https://github.com/OpenNFS/OpenNFS))
+* Scrawk ([Hull-Delaunay-Voronoi for Unity3D](https://github.com/Scrawk/Hull-Delaunay-Voronoi))
 
 Without the work of others, this project would not have been possible for me. I got the main information from the source code of the T3D tool from Denis Auroux. I got some information about the street lights and animated textures from the OpenNFS project, which by the way is a very interesting project :)
 
-<figure class="video_container">
-  <iframe src="https://www.youtube.com/embed/M0tAuKIhzHw" frameborder="0" allowfullscreen="true"> </iframe>
-</figure>
-
+**[Video Collection Of Imported Tracks](https://youtu.be/M0tAuKIhzHw)**
 
 ## What is Need For Speed 3 - Unity Importer NOT
 
@@ -60,6 +58,8 @@ This tool is only a track importer... no music, no cars (maybe i will add this i
 
 ### Import Tracks
 
+**[Quick Start Video](https://youtu.be/UEzAoHOXvJY)**
+
 * Import **[NFS3Importer.unitypackage](http://files.fotomartin.eu/nfsimporter/packages/NFS3Importer.unitypackage)** into your project.
   * It is important that the importer is located in the project under Assets/NFS3Importer, as there are dependencies in the code. However, this path is set by default when importing
   * If you do not use the Universal Render Pipeline, but the Legacy Render Pipeline, errors will appear when importing the package because the URP shaders cannot be compiled. Example: ```Shader error in 'NFS3Importer/URP/Additive': failed to open source file: 'Packages/com.unity.render-pipelines.core/ShaderLibrary/Color.hlsl' at line 71 (on glcore)``` However, these errors can simply be ignored, since in this case they are not used by the importer.
@@ -69,8 +69,6 @@ This tool is only a track importer... no music, no cars (maybe i will add this i
 * Choose the tracks you want to import
 * Click on **Import Tracks**
 * **CAUTION**: One Track needs up to 10 or 15 Minutes to import and there is no progress bar or something else... stay patient
-
-![Sample Video](http://files.fotomartin.eu/nfsimporter/videos/intro.mp4)
 
 ### After Import
 
