@@ -15,6 +15,10 @@ Special Thanks
 * Denis Auroux (T3D, fshtool) (<http://www.math.polytechnique.fr/cmat/auroux/nfs/>)
 * Amrik Sadhra (([OpenNFS](https://github.com/OpenNFS/OpenNFS))
 
+<figure class="video_container">
+  <iframe src="http://files.fotomartin.eu/nfsimporter/videos/intro.mp4" frameborder="0" allowfullscreen="true"> </iframe>
+</figure>
+
 ## What is Need For Speed 3 - Unity Importer NOT
 
 This tool is only a track importer... no music, no cars (maybe i will add this in the future but i have no plans for that)
