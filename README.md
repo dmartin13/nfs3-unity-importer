@@ -12,6 +12,7 @@
 
 * It is important that the importer is located in the project under Assets/NFS3Importer, as there are dependencies in the code. However, this path is set by default when importing
 * If you do not use the Universal Render Pipeline, but the Legacy Render Pipeline, errors will appear when importing the package because the URP shaders cannot be compiled. However, these errors can simply be ignored, since in this case they are not used by the importer.
+* This importer was tested with Unity version 2020.1.13f1, but it should also work with older and newer versions. All original tracks from NFS3 can be imported. However, since the importer makes some assumptions that the original tracks adhere to, but do not necessarily have to be, modified tracks can cause errors during the import.
 
 ## What is Need For Speed III - Unity Importer
 
@@ -184,7 +185,7 @@ TBD
 
 * Collider issues (very rare)
   * **Solution**: manually edit the collider meshes
-* darkness in tunnels
+* Darkness in tunnels
   * **Solution**: simply add some lights or adjust the settings for lightbaking
 * NullReferenceException because TrackSettings-Instance is destroyed during Import
   * **Solution**: Remove the partly imported Scene, delete the folder containing the track. Quit Unity and start it again. Try again. Now it should work.
