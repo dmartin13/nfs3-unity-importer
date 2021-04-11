@@ -3,6 +3,8 @@
 
 # but not .gitignore
 !/.gitignore
+# and README
+!/README.md
 
 # whitelist
 !/Assets
