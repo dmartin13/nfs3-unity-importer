@@ -8,7 +8,7 @@
 
 | NFS3Importer |
 | ------ |
-| [Download NFS3Importer Package](http://files.fotomartin.eu/nfsimporter/packages/NFS3Importer.unitypackage) |
+| [Download NFS3Importer Package](https://drive.google.com/file/d/1iN68UD8v4eq7ZVNcQsg2BDY9Hvg2vg2q/view) |
 
 * It is important that the importer is located in the project under Assets/NFS3Importer, as there are dependencies in the code. However, this path is set by default when importing
 * If you do not use the Universal Render Pipeline, but the Legacy Render Pipeline, errors will appear when importing the package because the URP shaders cannot be compiled. However, these errors can simply be ignored, since in this case they are not used by the importer.
@@ -60,7 +60,7 @@ This tool is only a track importer... no music, no cars (maybe i will add this i
 
 **[Quick Start Video](https://youtu.be/UEzAoHOXvJY)**
 
-* Import **[NFS3Importer.unitypackage](http://files.fotomartin.eu/nfsimporter/packages/NFS3Importer.unitypackage)** into your project.
+* Import **[NFS3Importer.unitypackage](https://drive.google.com/file/d/1iN68UD8v4eq7ZVNcQsg2BDY9Hvg2vg2q/view)** into your project.
   * It is important that the importer is located in the project under Assets/NFS3Importer, as there are dependencies in the code. However, this path is set by default when importing
   * If you do not use the Universal Render Pipeline, but the Legacy Render Pipeline, errors will appear when importing the package because the URP shaders cannot be compiled. Example: ```Shader error in 'NFS3Importer/URP/Additive': failed to open source file: 'Packages/com.unity.render-pipelines.core/ShaderLibrary/Color.hlsl' at line 71 (on glcore)``` However, these errors can simply be ignored, since in this case they are not used by the importer.
 * Go to **Window** -> **NFS3 Track Importer** and drag the new window wherever you want.
@@ -127,7 +127,7 @@ Export of tracks for use in other projects can be done in seconds. The only thin
 ##### Import Tracks in other Projects
 
 * Open your Project
-* Import the NFS3Importer_RE.unitypackage
+* Import the **[NFS3ImporterRE.unitypackage](https://drive.google.com/file/d/1E6wCnp6UDTbruaDD5BnaGUu4CJj-2QAe/view)**
 * Import your track package
 * That's it
 
