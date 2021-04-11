@@ -21,7 +21,7 @@ The Need For Speed III Unity Importer is an editor plug-in for the Unity Engine 
 
 * Denis Auroux (T3D, fshtool) (<http://www.math.polytechnique.fr/cmat/auroux/nfs/>)
 * Amrik Sadhra ([OpenNFS](https://github.com/OpenNFS/OpenNFS))
-* Scrawk ([Hull-Delaunay-Voronoi for Unity3D](https://github.com/Scrawk/Hull-Delaunay-Voronoi))
+* Justin Hawkins, David Sehnal, Matthew Campbell ([Hull-Delaunay-Voronoi for Unity3D](https://github.com/Scrawk/Hull-Delaunay-Voronoi))
 
 Without the work of others, this project would not have been possible for me. I got the main information from the source code of the T3D tool from Denis Auroux. I got some information about the street lights and animated textures from the OpenNFS project, which by the way is a very interesting project :)
 
