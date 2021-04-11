@@ -3,7 +3,6 @@ using System.IO;
 using NFS3Importer.NFSData.FSHQFS;
 using NFS3Importer.Runtime;
 using NFS3Importer.UnityData;
-using NFS3Importer.Utility;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 
@@ -24,6 +23,17 @@ namespace NFS3Importer {
 		public RenderPipeline renderPipeline;
 
 		private List<GeneratedObject> generatedObjects = new List<GeneratedObject>();
+		private FSHTool fshTool;
+		private TextureLoader textureLoader;
+		private Dictionary<string, byte[]> trackBmps;
+		private Dictionary<string, byte[]> trackAlphas;
+		private string trackFSHIndex;
+		private Dictionary<string, byte[]> sfxBmps;
+		private Dictionary<string, byte[]> sfxAlphas;
+		private string sfxFSHIndex;
+		private Dictionary<string, byte[]> skyBmps;
+		private Dictionary<string, byte[]> skyAlphas;
+		private string skyFSHIndex;
 
 		public void Import (TrackInfo track, string sfxFshPath, bool saveToAssets) {
 			
@@ -53,31 +63,34 @@ namespace NFS3Importer {
 			#endif
 
 			// first decompress the textures
-			string textureTmpPath = Path.Combine (Application.temporaryCachePath, track.Name + "_Textures");
-			Directory.CreateDirectory (textureTmpPath);
-			Debug.Log ("Decompressing textures to: " + textureTmpPath);
-			FSHTool.Decompress (track.QFSPath, textureTmpPath);
+			fshTool = new FSHTool(track.QFSPath);
+			trackBmps = fshTool.GetBMPs();
+			trackAlphas = fshTool.GetAlphas();
+			trackFSHIndex = fshTool.GetFSHIndex();
 
 			// decompress the SFX-textures
-			string sfxTextureTmpPath = Path.Combine (Application.temporaryCachePath, track.Name + "_SFXTextures");
-			Directory.CreateDirectory (sfxTextureTmpPath);
-			Debug.Log ("Decompressing SFX-textures to: " + sfxTextureTmpPath);
-			FSHTool.Decompress (sfxFshPath, sfxTextureTmpPath);
+			fshTool = new FSHTool(sfxFshPath);
+			sfxBmps = fshTool.GetBMPs();
+			sfxAlphas = fshTool.GetAlphas();
+			sfxFSHIndex = fshTool.GetFSHIndex();
 
 			// decompress the sky textures
-			string skyTextureTmpPath = Path.Combine (Application.temporaryCachePath, track.Name + "_SKYTextures");
-			Directory.CreateDirectory (skyTextureTmpPath);
-			Debug.Log ("Decompressing SKY-textures to: " + skyTextureTmpPath);
-			FSHTool.Decompress (track.SkyFSHPath, skyTextureTmpPath);
+			fshTool = new FSHTool(track.SkyFSHPath);
+			skyBmps = fshTool.GetBMPs();
+			skyAlphas = fshTool.GetAlphas();
+			skyFSHIndex = fshTool.GetFSHIndex();
 
 			//texture folder is scanned seperately by TextureLoader
 			textures = new List<FSHQFSItem> ();
 			// create items for "normal" track textures
-			FSHQFSItem[] textureItems = TextureLoader.GetTextures (textureTmpPath, true);
+			textureLoader = new TextureLoader(trackBmps, trackAlphas, trackFSHIndex, true);
+			FSHQFSItem[] textureItems = textureLoader.GetTextures ();
 			// create items for SKY track textures
-			FSHQFSItem[] skyTextureItems = TextureLoader.GetTextures (skyTextureTmpPath, false);
+			textureLoader = new TextureLoader(sfxBmps, sfxAlphas, sfxFSHIndex, false);
+			FSHQFSItem[] skyTextureItems = textureLoader.GetTextures ();
 			// add sfx-textures for every track
-			FSHQFSItem[] sfxTextureItems = TextureLoader.GetTextures (sfxTextureTmpPath, false);
+			textureLoader = new TextureLoader(skyBmps, skyAlphas, skyFSHIndex, false);
+			FSHQFSItem[] sfxTextureItems = textureLoader.GetTextures ();
 
 			#if UNITY_EDITOR
 			if(saveToAssets) {
@@ -138,7 +151,6 @@ namespace NFS3Importer {
 			#if UNITY_EDITOR
 			if(saveToAssets) {
 				generatedObjects.Add(new GeneratedObject(pixmap, ObjectType.Texture, "pixmap_combined.texture2d"));
-				//UnityEditor.AssetDatabase.CreateAsset (pixmap, Path.Combine (texturesFolder, "pixmap_combined.texture2d"));
 			}
 			#endif
 

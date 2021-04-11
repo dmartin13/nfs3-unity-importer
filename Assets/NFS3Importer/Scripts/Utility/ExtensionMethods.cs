@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System;
 
 namespace NFS3Importer.Utility {
 	public static class ExtensionMethods {
@@ -71,5 +72,24 @@ namespace NFS3Importer.Utility {
 		public static float Remap (this float value, float from1, float to1, float from2, float to2) {
     		return (value - from1) / (to1 - from1) * (to2 - from2) + from2;
 		}
+
+		public static byte[] GetUTF8Bytes(this string str)
+        {
+            return System.Text.UTF8Encoding.UTF8.GetBytes(str);
+        }
+
+		public static string GetUTF8String(this byte[] array)
+        {
+            return System.Text.Encoding.UTF8.GetString(array);
+        }
+
+		public static byte[] ToByteArray(this int[] input)
+        {
+            List<byte> result = new List<byte>();
+			for (int i = 0; i < input.Length; i++) {
+				result.AddRange(BitConverter.GetBytes(input[i]));
+			}
+			return result.ToArray();
+        }
 	}
 }

@@ -8,8 +8,3 @@
 !/Assets
 /Assets/*
 !/Assets/NFS3Importer
-
-# exclude binaries
-!/Assets/NFS3Importer/Plugins
-/Assets/NFS3Importer/Plugins/*
-!/Assets/NFS3Importer/Plugins/Source

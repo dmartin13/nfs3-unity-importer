@@ -2,14 +2,19 @@
 using System;
 using System.IO;
 using NFS3Importer.Utility.B83.Image.BMP;
-using NFS3Importer.Utility;
 using NFS3Importer.UnityData;
+using System.Collections.Generic;
 
 namespace NFS3Importer.NFSData.FSHQFS {
-	public static class TextureLoader {
+	public class TextureLoader {
+
+		private Dictionary<string, byte[]> bmps;
+		private Dictionary<string, byte[]> alphas;
+		private string FshIndex;
+		FSHQFSItem[] items;
 
 		// this are the group identifiers in the FSH/QFS Index files
-		private static readonly (string, FSHQFSGroup)[] GROUPNAMES = new (string, FSHQFSGroup)[] {
+		private readonly (string, FSHQFSGroup)[] GROUPNAMES = new (string, FSHQFSGroup)[] {
 			("shad", FSHQFSGroup.SHAD),
 			("spkb", FSHQFSGroup.SPKB),
 			("fntc", FSHQFSGroup.FNTC),
@@ -36,18 +41,34 @@ namespace NFS3Importer.NFSData.FSHQFS {
 			("SNNW", FSHQFSGroup.SunNightWeather)
 		};
 
-		public static FSHQFSItem[] GetTextures (string path, bool ignoreGroups = false) {
-			FSHQFSItem[] items;
-			DirectoryInfo dir = new DirectoryInfo (path);
-			FileInfo[] files = dir.GetFiles ("*.fsh");
+		public TextureLoader(Dictionary<string, byte[]> bmps, Dictionary<string, byte[]> alphas, string FshIndex, bool ignoreGroups) {
+			this.bmps = bmps;
+			this.alphas = alphas;
+			this.FshIndex = FshIndex;
+			List<string> lines = new List<string>();
+			StringReader sr = new StringReader(FshIndex);
 
-			string[] lines = File.ReadAllLines (files[0].FullName);
-			items = parseIndexFile (lines, path, ignoreGroups);
+			string line;
+			while(true) {
+				line = sr.ReadLine();
+				if(line != null) {
+					lines.Add(line);
+				} else {
+					break;
+				}
+				
+			}
 
+			items = parseIndexFile (lines.ToArray(), ignoreGroups);
+			
+		}
+
+		public FSHQFSItem[] GetTextures () {
+			if(bmps == null || alphas == null || FshIndex == null) return null;
 			return items;
 		}
 
-		private static FSHQFSItem[] parseIndexFile (string[] lines, string path, bool ignoreGroups) {
+		private FSHQFSItem[] parseIndexFile (string[] lines, bool ignoreGroups) {
 
 			// the first 3 lines are not relevant for us
 			int currentLine = 3;
@@ -115,12 +136,12 @@ namespace NFS3Importer.NFSData.FSHQFS {
 
 				} else if (items[i].EntryFormat == 0x61) {
 					// DXT3 compressed (with alpha channel)
-					items[i].AlphaFilename = Path.Combine (path, lines[currentLine++].Split (new char[] { ' ' })[1]);
+					items[i].AlphaFilename = lines[currentLine++].Split (new char[] { ' ' })[1];
 					items[i].HasAlpha = true;
 
 				} else if (items[i].EntryFormat == 0x6D) {
 					// 16-bit 4:4:4:4 (with alpha channel)
-					items[i].AlphaFilename = Path.Combine (path, lines[currentLine++].Split (new char[] { ' ' })[1]);
+					items[i].AlphaFilename = lines[currentLine++].Split (new char[] { ' ' })[1];
 					items[i].HasAlpha = true;
 
 				} else if (items[i].EntryFormat == 0x78) {
@@ -133,12 +154,12 @@ namespace NFS3Importer.NFSData.FSHQFS {
 
 				} else if (items[i].EntryFormat == 0x7D) {
 					// 32-bit 8:8:8:8 (with alpha channel)
-					items[i].AlphaFilename = Path.Combine (path, lines[currentLine++].Split (new char[] { ' ' })[1]);
+					items[i].AlphaFilename = lines[currentLine++].Split (new char[] { ' ' })[1];
 					items[i].HasAlpha = true;
 
 				} else if (items[i].EntryFormat == 0x7E) {
 					// 16-bit 1:5:5:5 (with alpha channel)
-					items[i].AlphaFilename = Path.Combine (path, lines[currentLine++].Split (new char[] { ' ' })[1]);
+					items[i].AlphaFilename = lines[currentLine++].Split (new char[] { ' ' })[1];
 					items[i].HasAlpha = true;
 				} else if (items[i].EntryFormat == 0x7F) {
 					// 24-bit 0:8:8:8
@@ -169,7 +190,8 @@ namespace NFS3Importer.NFSData.FSHQFS {
 
 				// create Textures
 				byte[] bmpFileData;
-				bmpFileData = File.ReadAllBytes (Path.Combine (path, idAndMasterFilename[1]));
+				//bmpFileData = File.ReadAllBytes (Path.Combine (path, idAndMasterFilename[1]));
+				bmpFileData = bmps[idAndMasterFilename[1]];
 				BMPLoader bmpLoader = new BMPLoader ();
 				//Load the BMP data
 				BMPImage bmpImg = bmpLoader.LoadBMP (bmpFileData);
@@ -190,7 +212,8 @@ namespace NFS3Importer.NFSData.FSHQFS {
 
 				if (items[i].HasAlpha) {
 					byte[] alphaFileData;
-					alphaFileData = File.ReadAllBytes (items[i].AlphaFilename);
+					//alphaFileData = File.ReadAllBytes (items[i].AlphaFilename);
+					alphaFileData = alphas[items[i].AlphaFilename];
 					//Load the ALPHA data
 					BMPImage alphaImg = bmpLoader.LoadBMP (alphaFileData);
 
@@ -198,22 +221,11 @@ namespace NFS3Importer.NFSData.FSHQFS {
 				}
 
 				items[i].Texture = tex;
-
-				// create a normal-map and specular map from given texture
-				// Texture2D filteredTex = NormalMapTools.FilterMedian(tex,5);
-				// Texture2D normalTex = NormalMapTools.CreateNormalmap(filteredTex,6);
-				// Texture2D specularTex = NormalMapTools.CreateSpecular(filteredTex,1.2f,0.5f);
-				// items[i].NormalMap = normalTex;
-				// items[i].SpecularMap = specularTex;
-
-				//Testing
-				//if (ignoreGroups)
-				//	UnityEditor.AssetDatabase.CreateAsset (tex, Path.Combine (Importer.texturesFolder, i + ".texture2d"));
 			}
 			return items;
 		}
 
-		private static FSHQFSExtraData parseAdditionalText (string input) {
+		private FSHQFSExtraData parseAdditionalText (string input) {
 			string result = "";
 
 			int i = 0;
@@ -230,7 +242,7 @@ namespace NFS3Importer.NFSData.FSHQFS {
 			}
 		}
 
-		private static void transferAlpha (Texture2D a, Texture2D b) {
+		private void transferAlpha (Texture2D a, Texture2D b) {
 			Color pixA, pixB;
 			for (int i = 0; i < a.width; i++) {
 				for (int j = 0; j < a.height; j++) {
@@ -247,7 +259,7 @@ namespace NFS3Importer.NFSData.FSHQFS {
 			a.Apply ();
 		}
 
-		private static FSHQFSGroup getGroup (string entryName) {
+		private FSHQFSGroup getGroup (string entryName) {
 			foreach ((string, FSHQFSGroup) groupName in GROUPNAMES) {
 				if (entryName.Contains (groupName.Item1)) {
 					return groupName.Item2;
@@ -256,7 +268,7 @@ namespace NFS3Importer.NFSData.FSHQFS {
 			return FSHQFSGroup.GLOBAL;
 		}
 
-		private static int getID (string entryName) {
+		private int getID (string entryName) {
 			int index = 0;
 			for (int i = 0; i < entryName.Length; i++) {
 				// if the character is not a number between 0 and 9 go ahead

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System;
+using System.Text;
 
 namespace NFS3Importer.Utility {
 	public class FileReader {
@@ -55,6 +56,13 @@ namespace NFS3Importer.Utility {
 			return result;
 		}
 
+		public ushort readUShort () {
+			Debug.Assert ((currPos + 1) <= bytes.Length);
+			ushort result = BitConverter.ToUInt16 (bytes, currPos);
+			currPos += 2;
+			return result;
+		}
+
 		public char readChar8Bit () {
 			return (char)readByte ();
 		}
@@ -78,8 +86,22 @@ namespace NFS3Importer.Utility {
 			return new Vector3 (readInt () / 65536.0f, readInt () / 65536.0f, readInt () / 65536.0f);
 		}
 
+		public string readString (int length) {
+			StringBuilder sb = new StringBuilder();
+			Debug.Assert ((currPos + length) <= bytes.Length);
+			for (int i = currPos; i < currPos + length; i++) {
+				sb.Append((char)bytes[i]);
+			}
+			currPos += length;
+			return sb.ToString();
+		}
+
 		public int getCurrPos () {
 			return this.currPos;
+		}
+
+		public void setCurrPos (int pos) {
+			this.currPos = pos;
 		}
 
 		public int getContentLength () {
