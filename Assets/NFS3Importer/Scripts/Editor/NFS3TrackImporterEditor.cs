@@ -121,6 +121,7 @@ namespace NFS3Importer.Editor {
 							Debug.LogWarning("You need to assign a ImporterSettings-Object first!");
 						}
 					}
+					EditorGUILayout.HelpBox("One Track needs up to 10 or 15 Minutes to import and there is no progress bar or something else... stay patient!", MessageType.Info);
 				}
 			}
 		}
