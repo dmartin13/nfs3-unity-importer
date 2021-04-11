@@ -87,7 +87,8 @@
 	public enum RenderPipeline {
 		Legacy,
 		URP,
-		HDRP
+		HDRP,
+		Unknown
 	}
 
 	public enum ObjectType {

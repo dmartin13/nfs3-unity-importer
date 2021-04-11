@@ -14,6 +14,9 @@ namespace NFS3Importer.Editor {
 		private string nfsBaseDirectory = null;
 		private bool scanned = false;
 		private bool[] selectedTracks;
+		private bool unknownRP;
+		private int selectedRP = -1;
+		private readonly string[] optionsRP = new string[] {"Built-In Render Pipeline (Legacy)", "Universal Render Pipeline", "High Definition Render Pipeline"};
 		private UnityData.RenderPipeline renderPipeline;
 		private string sfxFshPath;
 		private TrackInfo[] foundTracks;
@@ -35,14 +38,27 @@ namespace NFS3Importer.Editor {
 				if (GraphicsSettings.currentRenderPipeline.GetType().ToString().Contains("HighDefinition")) {
 					renderPipeline = UnityData.RenderPipeline.HDRP;
    				}
-				else {
+				else if (GraphicsSettings.currentRenderPipeline.GetType().ToString().Contains("Universal")) {
 					renderPipeline = UnityData.RenderPipeline.URP;
+				} else {
+					renderPipeline = UnityData.RenderPipeline.Unknown;
+					unknownRP = true;
 				}
 				
 			}
 		}
 
 		void OnGUI () {
+
+			if (unknownRP && selectedRP >= 0) {
+				switch (selectedRP) {
+					case 0: renderPipeline = UnityData.RenderPipeline.Legacy; break;
+					case 1: renderPipeline = UnityData.RenderPipeline.URP; break;
+					case 2: renderPipeline = UnityData.RenderPipeline.HDRP; break;
+					default: renderPipeline = UnityData.RenderPipeline.Legacy; break;
+				}
+				unknownRP = false;
+			}
 
 			if(foundTracks == null && scanned) {
 				scanned = false;
@@ -60,8 +76,13 @@ namespace NFS3Importer.Editor {
 				return;
 			} else if (renderPipeline == UnityData.RenderPipeline.URP) {
 				EditorGUILayout.HelpBox("Universal Render Pipeline is active!", MessageType.Info);
-			} else {
+			} else if (renderPipeline == UnityData.RenderPipeline.Legacy) {
 				EditorGUILayout.HelpBox("Built-In Render Pipeline is active!", MessageType.Info);
+			} else {
+				EditorGUILayout.HelpBox("The render pipeline could not be recognized! Please select the render pipeline you are using from the list below", MessageType.Warning);
+				selectedRP = EditorGUILayout.Popup("Render Pipeline", selectedRP, optionsRP);
+				unknownRP = true;
+				return;
 			}
 
 			if (GUILayout.Button ("Select Path")) {
