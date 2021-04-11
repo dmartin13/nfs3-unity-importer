@@ -8,9 +8,6 @@ using UnityEngine;
 
 /// <summary>
 /// This tool was originally written by Denis Auroux.
-/// ** New generation FSH/QFS decompressor/compressor
-/// ** Version 1.22 - copyright (c) Denis Auroux 1998-2002
-/// ** auroux@math.polytechnique.fr
 /// ** http://www.math.polytechnique.fr/cmat/auroux/nfs/
 /// ** http://auroux.free.fr/nfs/
 /// Translated into C# by David Martin
