@@ -16,7 +16,7 @@
 
 ## What is Need For Speed III - Unity Importer
 
-The Need For Speed III Unity Importer is an editor plug-in for the Unity Engine to import race tracks from the computer game Need For Speed III Hot Pursuite. All files are converted into "Unity-understandable" files so that the track can be edited inside the Unity Editor. For each imported track, a scene is created with all track contents. The tool works on Linux, Windows, MacOS. It supports the legacy render pipeline (built-in), the universal render pipeline (URP), High Definition Renderpipeline (HDRP) planed for future.
+The Need For Speed III Unity Importer is an editor plug-in for the Unity Engine to import race tracks from the computer game Need For Speed III Hot Pursuite. All files are converted into "Unity-understandable" files so that the track can be edited inside the Unity Editor. For each imported track, a scene is created with all track contents. The tool works on Linux, Windows, MacOS. It supports the legacy render pipeline (built-in) and the universal render pipeline (URP).
 
 **Special Thanks:**
 
@@ -34,7 +34,7 @@ This tool is only a track importer... no music, no cars (maybe i will add this i
 
 ## Features
 
-* Supports Legacy Renderpipeline (Built-In), Universal Render-Pipeline (URP), HDRP-support comming soon
+* Supports Legacy Renderpipeline (Built-In), Universal Render-Pipeline (URP)
 * Import of complete track-geometry with all textures
 * Import of all objects along the track
 * supports animated objects (train, aircraft, zeppelin, ...)
@@ -291,6 +291,6 @@ TBD
 
 ## Planed for Future
 
-* Support of HDRP
 * Light flares
 * Support of CAN files (camera animations)
+* (maybe Support of HDRP)

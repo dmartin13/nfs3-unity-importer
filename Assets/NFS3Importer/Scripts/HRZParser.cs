@@ -14,7 +14,8 @@ namespace NFS3Importer {
             } else if(rp == RenderPipeline.URP) {
                 shader = Shader.Find("NFS3Importer/URP/Skybox");
             } else {
-                shader = Shader.Find("NFS3Importer/URP/Skybox");
+                // renderpipeline not supported
+                shader = Shader.Find("NFS3Importer/Legacy/Skybox");
             }
 
             Material skybox = new Material(shader);

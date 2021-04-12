@@ -16,7 +16,7 @@ namespace NFS3Importer.Editor {
 		private bool[] selectedTracks;
 		private bool unknownRP;
 		private int selectedRP = -1;
-		private readonly string[] optionsRP = new string[] {"Built-In Render Pipeline (Legacy)", "Universal Render Pipeline", "High Definition Render Pipeline"};
+		private readonly string[] optionsRP = new string[] {"Built-In Render Pipeline (Legacy)", "Universal Render Pipeline"};
 		private UnityData.RenderPipeline renderPipeline;
 		private string sfxFshPath;
 		private TrackInfo[] foundTracks;
@@ -121,7 +121,7 @@ namespace NFS3Importer.Editor {
 							Debug.LogWarning("You need to assign a ImporterSettings-Object first!");
 						}
 					}
-					EditorGUILayout.HelpBox("One Track needs up to 10 or 15 Minutes to import and there is no progress bar or something else... stay patient!", MessageType.Info);
+					EditorGUILayout.HelpBox("One Track needs up to 10 or 15 Minutes to import and there is no progress bar or something else... stay patient!", MessageType.Warning);
 				}
 			}
 		}

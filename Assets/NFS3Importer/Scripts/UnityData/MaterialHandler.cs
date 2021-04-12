@@ -40,11 +40,12 @@ namespace NFS3Importer.UnityData {
 				CULLOFFOPAQUE = Shader.Find ("Universal Render Pipeline/Lit");
 				ADDITIVE = Shader.Find ("NFS3Importer/URP/Additive");
    			} else {
-				CULLONCUTOUT = Shader.Find ("Universal Render Pipeline/Lit");
-				CULLONOPAQUE = Shader.Find ("Universal Render Pipeline/Lit");
-				CULLOFFCUTOUT = Shader.Find ("Universal Render Pipeline/Lit");
-				CULLOFFOPAQUE = Shader.Find ("Universal Render Pipeline/Lit");
-				ADDITIVE = Shader.Find ("NFS3Importer/URP/Additive");
+				// Render pipeline not supported
+				CULLONCUTOUT = Shader.Find ("Standard");
+				CULLONOPAQUE = Shader.Find ("Standard");
+				CULLOFFCUTOUT = Shader.Find ("Standard");
+				CULLOFFOPAQUE = Shader.Find ("Standard");
+				ADDITIVE = Shader.Find ("NFS3Importer/Legacy/Additive");
 			}
 			
 
