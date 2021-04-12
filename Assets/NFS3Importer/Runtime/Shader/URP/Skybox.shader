@@ -253,7 +253,7 @@ Shader "NFS3Importer/URP/Skybox"
                 // Graph Functions
                 
                 // 92f5cc04867e6bc979da043d7187c089
-                #include "Assets/NFS3Importer/Runtime/Shader/URP/Graphs/CustomLighting.hlsl"
+                #include "Assets/NFS3Importer/Runtime/Shader/URP/CustomLighting.hlsl"
                 
                 struct Bindings_MainLight_ea19639cbd5b57dae9d81a5e33b525f4
                 {
@@ -1582,7 +1582,7 @@ Shader "NFS3Importer/URP/Skybox"
                 // Graph Functions
                 
                 // 92f5cc04867e6bc979da043d7187c089
-                #include "Assets/NFS3Importer/Runtime/Shader/URP/Graphs/CustomLighting.hlsl"
+                #include "Assets/NFS3Importer/Runtime/Shader/URP/CustomLighting.hlsl"
                 
                 struct Bindings_MainLight_ea19639cbd5b57dae9d81a5e33b525f4
                 {
