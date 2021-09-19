@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using NFS3Importer.Utility;
+using UnityEngine;
 
 namespace NFS3Importer.NFSData.COL {
 	public class COLVRoad {
@@ -29,5 +30,11 @@ namespace NFS3Importer.NFSData.COL {
 			this.LeftWall = leftWall;
 			this.RightWall = rightWall;
 		}
+
+        public override string ToString()
+        {
+            return "{ " + "RefPoint: " + RefPoint.Vector3Int2Float().ToString() + ", VRoad: " + Unknown.ToString("X8") + " }";
+        }
+    
 	}
 }
